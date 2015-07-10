@@ -22,4 +22,3 @@ RSpec.describe Product, type: :model do
 	  	expect(product.errors[:title]).to include("title is longer than description")
 	  end
 	end  
-end
