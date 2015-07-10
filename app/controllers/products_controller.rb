@@ -9,16 +9,13 @@ class ProductsController < ApplicationController
 	end
 
 	def destroy
-		@product = Product.find(params[:id])
-		if @product.destroy
-			redirect_to products_url
-		else
-			flash[:notice] = "there is an error while deleting"
-		end
+		@product = Product.find(product_id)
+		flash[:notice] = "there is an error while deleting" unless @product.destroy
+		redirect_to products_url
 	end
 
 	def edit
-		@product = Product.find(params[:id])
+		@product = Product.find(product_id)
 		render :new
 	end
 
@@ -32,7 +29,7 @@ class ProductsController < ApplicationController
 	end
 
 	def update
-		@product = Product.find(params[:id])
+		@product = Product.find(product_id)
 		if @product.update(product_params)
 			redirect_to products_url
 		else
@@ -44,7 +41,7 @@ class ProductsController < ApplicationController
 	private
 
 		def product_id
-			params[:product][:id]
+			params[:id]
 		end
 
 		def product_params
