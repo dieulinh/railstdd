@@ -23,6 +23,7 @@ RSpec.describe ProductsController, type: :controller do
 
 		describe "#create" do
 			let!(:product_params) { FactoryGirl.attributes_for(:product) }
+			
 			it "should create a product" do
 				expect{
 					post :create, product: product_params
@@ -47,7 +48,8 @@ RSpec.describe ProductsController, type: :controller do
 			let!(:new_product_params) { {title: "Python book for you", 
 																	description: "For you learning Python in 10 years",
 																	price: 134 } }
-			before(:each) do
+			
+			before do
 				put :update, id: product.id, product: new_product_params
 				product.reload
 		  end																
