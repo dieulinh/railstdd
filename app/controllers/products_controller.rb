@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+	
 	def index
 		@products = Product.all
 	end
@@ -6,14 +7,15 @@ class ProductsController < ApplicationController
 	def new
 		@product = Product.new
 	end
+
 	def destroy
 		@product = Product.find(params[:id])
 		@product.destroy
 		redirect_to products_url
 	end
+
 	def edit
 		@product = Product.find(params[:id])
-
 		render :new
 	end
 
@@ -22,7 +24,6 @@ class ProductsController < ApplicationController
 		if @product.save
 			redirect_to products_url
 		else
-
 			render :new
 		end
 	end
@@ -32,7 +33,7 @@ class ProductsController < ApplicationController
 		if @product.update(product_params)
 			redirect_to products_url
 		else
-
+			render :new
 		end
 	end
 
