@@ -4,7 +4,6 @@ class Product < ActiveRecord::Base
 	validate :title_is_shorter_than_description
 	before_validation { |product| product.title.downcase! if product.title }
 
-
 	def title_is_shorter_than_description
 		return if title.blank? or description.blank?
 
