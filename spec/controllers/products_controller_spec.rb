@@ -24,7 +24,7 @@ RSpec.describe ProductsController, type: :controller do
 		describe "#create" do
 			let!(:product_params) { FactoryGirl.attributes_for(:product) }
 			
-			it "should create a product" do
+			it "Products table should have new product by increasing by 1" do
 				expect{
 					post :create, product: product_params
 					}.to change(Product, :count).by(1)
@@ -52,7 +52,8 @@ RSpec.describe ProductsController, type: :controller do
 			before do
 				put :update, id: product.id, product: new_product_params
 				product.reload
-		  end																
+		  end			
+
 		  it "should update new value after saving Product" do
 		  	expect(product.description).to include("For you learning Python in 10 years")
 		  	expect(product.price).to eq 134
@@ -62,6 +63,7 @@ RSpec.describe ProductsController, type: :controller do
 
 		describe "#destroy" do
 			let!(:product) { FactoryGirl.create(:product) }
+
 			it "Table product should descrease by 1" do
 				expect{
 					delete :destroy, id: product.id
