@@ -10,8 +10,11 @@ class ProductsController < ApplicationController
 
 	def destroy
 		@product = Product.find(params[:id])
-		@product.destroy
-		redirect_to products_url
+		if @product.destroy
+			redirect_to products_url
+		else
+			flash[:notice] = "there is an error while deleting"
+		end
 	end
 
 	def edit
@@ -33,6 +36,7 @@ class ProductsController < ApplicationController
 		if @product.update(product_params)
 			redirect_to products_url
 		else
+			flash[:notice] = "there is an error while updating"
 			render :new
 		end
 	end

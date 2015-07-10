@@ -11,9 +11,11 @@ RSpec.describe ProductsController, type: :controller do
 		end
 
 		describe "#new" do
+
 			before{
 					get :new
 				}
+
 			it "should be a product" do
 				expect(assigns(:product)).to be_a_new Product
 			end
@@ -22,7 +24,6 @@ RSpec.describe ProductsController, type: :controller do
 		describe "#create" do
 			let!(:product_params) { FactoryGirl.attributes_for(:product) }
 			it "should create a product" do
-				puts product_params
 				expect{
 					post :create, product: product_params
 					}.to change(Product, :count).by(1)
@@ -46,12 +47,14 @@ RSpec.describe ProductsController, type: :controller do
 			let!(:new_product_params) { {title: "Python book for you", 
 																	description: "For you learning Python in 10 years",
 																	price: 134 } }
-			before{
+			before(:each) do
 				put :update, id: product.id, product: new_product_params
 				product.reload
-		  }																	
-		  it "update all attribute for product" do
+		  end																
+		  it "should update new value after saving Product" do
 		  	expect(product.description).to include("For you learning Python in 10 years")
+		  	expect(product.price).to eq 134
+		  	expect(product.title.downcase).to include("python book for you")
 		  end
 		end
 
